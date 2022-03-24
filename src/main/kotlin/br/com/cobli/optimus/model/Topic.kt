@@ -1,11 +1,11 @@
-package br.com.cobli.optimus.models
+package br.com.cobli.optimus.model
 
 import java.time.LocalDateTime
 import java.util.UUID
 import kotlin.collections.ArrayList
 
 data class Topic(
-    val id: UUID? = null,
+    val id: UUID? = UUID.randomUUID(),
     val title: String,
     val message: String,
     val createdAt: LocalDateTime = LocalDateTime.now(),

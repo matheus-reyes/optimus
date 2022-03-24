@@ -1,4 +1,4 @@
-package br.com.cobli.optimus
+package br.com.cobli.optimus.controller
 
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping("/healthcheck")
-class HelloController {
+class HealthcheckController {
 
     @GetMapping
     fun healthcheck(): String {

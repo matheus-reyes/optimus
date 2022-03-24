@@ -1,4 +1,4 @@
-package br.com.cobli.optimus.models
+package br.com.cobli.optimus.model
 
 enum class StatusTopic {
     NOT_ANSWERED,
