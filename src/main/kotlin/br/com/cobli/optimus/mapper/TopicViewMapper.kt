@@ -5,7 +5,7 @@ import br.com.cobli.optimus.model.Topic
 import org.springframework.stereotype.Component
 
 @Component
-class TopicViewMapper: Mapper<Topic, TopicView> {
+class TopicViewMapper : Mapper<Topic, TopicView> {
 
     override fun map(t: Topic): TopicView {
         return TopicView(

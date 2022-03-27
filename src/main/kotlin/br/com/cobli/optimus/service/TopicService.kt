@@ -10,14 +10,15 @@ import java.util.stream.Collectors
 
 @Service
 class TopicService(
-        private var topics: List<Topic> = ArrayList(),
-        private val topicViewMapper: TopicViewMapper,
-        private val topicFormMapper: TopicFormMapper,
+    private var topics: List<Topic> = ArrayList(),
+    private val topicViewMapper: TopicViewMapper,
+    private val topicFormMapper: TopicFormMapper,
 ) {
 
     fun getTopics(): List<TopicView> {
         return topics.stream().map {
-            topic -> topicViewMapper.map(topic)
+            topic ->
+            topicViewMapper.map(topic)
         }.collect(Collectors.toList())
     }
 
@@ -31,5 +32,4 @@ class TopicService(
     fun createTopic(topicForm: TopicForm) {
         topics = topics.plus(topicFormMapper.map(topicForm))
     }
-
 }

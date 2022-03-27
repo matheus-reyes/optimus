@@ -21,5 +21,4 @@ class CourseService(private final var courses: List<Course>) {
             course.id == id
         }.findFirst().get()
     }
-
 }

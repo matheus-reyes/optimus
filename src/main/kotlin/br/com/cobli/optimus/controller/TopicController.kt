@@ -3,8 +3,8 @@ package br.com.cobli.optimus.controller
 import br.com.cobli.optimus.dto.TopicForm
 import br.com.cobli.optimus.dto.TopicView
 import br.com.cobli.optimus.service.TopicService
-import org.springframework.web.bind.annotation.*
-import java.util.*
+import org.springframework.web.bind.annotation.* // ktlint-disable no-wildcard-imports
+import java.util.UUID
 import javax.validation.Valid
 
 @RestController

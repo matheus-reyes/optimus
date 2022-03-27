@@ -9,17 +9,17 @@ import java.util.UUID
 
 @Component
 class TopicFormMapper(
-        private val courseService: CourseService,
-        private val userService: UserService,
-): Mapper<TopicForm, Topic>{
+    private val courseService: CourseService,
+    private val userService: UserService,
+) : Mapper<TopicForm, Topic> {
 
     override fun map(t: TopicForm): Topic {
         return Topic(
-                id = UUID.randomUUID(),
-                title = t.title,
-                message = t.message,
-                course = courseService.getCourseById(t.courseId),
-                author = userService.getUserById(t.authorId),
+            id = UUID.randomUUID(),
+            title = t.title,
+            message = t.message,
+            course = courseService.getCourseById(t.courseId),
+            author = userService.getUserById(t.authorId),
         )
     }
 }

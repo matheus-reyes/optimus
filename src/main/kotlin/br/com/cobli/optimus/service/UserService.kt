@@ -21,5 +21,4 @@ class UserService(private final var users: List<User>) {
             user.id == id
         }.findFirst().get()
     }
-
 }
