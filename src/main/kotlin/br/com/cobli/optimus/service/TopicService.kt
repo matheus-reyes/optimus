@@ -2,6 +2,7 @@ package br.com.cobli.optimus.service
 import br.com.cobli.optimus.dto.CreateTopicForm
 import br.com.cobli.optimus.dto.TopicView
 import br.com.cobli.optimus.dto.UpdateTopicForm
+import br.com.cobli.optimus.exception.NotFoundException
 import br.com.cobli.optimus.mapper.TopicFormMapper
 import br.com.cobli.optimus.mapper.TopicViewMapper
 import br.com.cobli.optimus.model.Topic
@@ -14,6 +15,7 @@ class TopicService(
     private var topics: List<Topic> = ArrayList(),
     private val topicViewMapper: TopicViewMapper,
     private val topicFormMapper: TopicFormMapper,
+    private val notFoundMessage: String = "Tópico não existe"
 ) {
 
     fun getTopics(): List<TopicView> {
@@ -26,7 +28,7 @@ class TopicService(
     fun getTopicById(id: UUID): TopicView {
         val topic = topics.stream().filter { topic ->
             topic.id == id
-        }.findFirst().get()
+        }.findFirst().orElseThrow { NotFoundException(notFoundMessage) }
         return topicViewMapper.map(topic)
     }
 
@@ -39,7 +41,7 @@ class TopicService(
     fun updateTopic(topicForm: UpdateTopicForm): TopicView {
         val topic = topics.stream().filter { topic ->
             topic.id == topicForm.id
-        }.findFirst().get()
+        }.findFirst().orElseThrow { NotFoundException(notFoundMessage) }
         val createdTopic = Topic(
             id = topicForm.id,
             title = topicForm.title,
@@ -56,7 +58,7 @@ class TopicService(
     fun deleteTopic(id: UUID) {
         val topic = topics.stream().filter { topic ->
             topic.id == id
-        }.findFirst().get()
+        }.findFirst().orElseThrow { NotFoundException(notFoundMessage) }
         topics = topics.minus(topic)
     }
 }
