@@ -5,6 +5,7 @@ import br.com.cobli.optimus.dto.TopicView
 import br.com.cobli.optimus.service.TopicService
 import org.springframework.web.bind.annotation.*
 import java.util.*
+import javax.validation.Valid
 
 @RestController
 @RequestMapping("/topics")
@@ -21,7 +22,7 @@ class TopicController(private val service: TopicService) {
     }
 
     @PostMapping
-    fun createTopic(@RequestBody topicDTO: TopicForm) {
+    fun createTopic(@RequestBody @Valid topicDTO: TopicForm) {
         service.createTopic(topicDTO)
     }
 }
