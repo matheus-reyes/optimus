@@ -6,9 +6,10 @@ import br.com.cobli.optimus.exception.NotFoundException
 import br.com.cobli.optimus.mapper.TopicFormMapper
 import br.com.cobli.optimus.mapper.TopicViewMapper
 import br.com.cobli.optimus.repository.TopicRepository
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
 import java.util.UUID
-import java.util.stream.Collectors
 
 @Service
 class TopicService(
@@ -18,11 +19,16 @@ class TopicService(
     private val notFoundMessage: String = "Tópico não existe",
 ) {
 
-    fun getTopics(): List<TopicView> {
-        return topicRepository.findAll().stream().map {
+    fun getTopics(
+        courseName: String?,
+        pagination: Pageable,
+    ): Page<TopicView> {
+        val topics = if (courseName == null) topicRepository.findAll(pagination)
+        else topicRepository.findByCourseName(courseName, pagination)
+        return topics.map {
             topic ->
             topicViewMapper.map(topic)
-        }.collect(Collectors.toList())
+        }
     }
 
     fun getTopicById(id: UUID): TopicView {
