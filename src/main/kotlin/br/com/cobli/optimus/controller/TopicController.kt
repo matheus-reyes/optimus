@@ -4,6 +4,8 @@ import br.com.cobli.optimus.dto.CreateTopicForm
 import br.com.cobli.optimus.dto.TopicView
 import br.com.cobli.optimus.dto.UpdateTopicForm
 import br.com.cobli.optimus.service.TopicService
+import org.springframework.cache.annotation.CacheEvict
+import org.springframework.cache.annotation.Cacheable
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.data.domain.Sort
@@ -21,6 +23,7 @@ import javax.validation.Valid
 class TopicController(private val service: TopicService) {
 
     @GetMapping
+    @Cacheable("topics_cache")
     fun getTopics(
         @RequestParam(required = false) courseName: String?,
         @PageableDefault(size = 5, sort = ["createdAt"], direction = Sort.Direction.DESC) pagination: Pageable,
@@ -35,6 +38,7 @@ class TopicController(private val service: TopicService) {
 
     @PostMapping
     @Transactional
+    @CacheEvict(value = ["topics_cache"], allEntries = true)
     fun createTopic(
         @RequestBody @Valid topicForm: CreateTopicForm,
         uriBuilder: UriComponentsBuilder,
@@ -46,6 +50,7 @@ class TopicController(private val service: TopicService) {
 
     @PutMapping
     @Transactional
+    @CacheEvict(value = ["topics_cache"], allEntries = true)
     fun updateTopic(@RequestBody @Valid topicForm: UpdateTopicForm): ResponseEntity<TopicView> {
         val topicView = service.updateTopic(topicForm)
         return ResponseEntity.ok(topicView)
@@ -54,6 +59,7 @@ class TopicController(private val service: TopicService) {
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @Transactional
+    @CacheEvict(value = ["topics_cache"], allEntries = true)
     fun deleteTopic(@PathVariable id: UUID) {
         service.deleteTopic(id)
     }
