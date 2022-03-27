@@ -1,6 +1,6 @@
 package br.com.cobli.optimus.mapper
 
-import br.com.cobli.optimus.dto.TopicForm
+import br.com.cobli.optimus.dto.CreateTopicForm
 import br.com.cobli.optimus.model.Topic
 import br.com.cobli.optimus.service.CourseService
 import br.com.cobli.optimus.service.UserService
@@ -11,9 +11,9 @@ import java.util.UUID
 class TopicFormMapper(
     private val courseService: CourseService,
     private val userService: UserService,
-) : Mapper<TopicForm, Topic> {
+) : Mapper<CreateTopicForm, Topic> {
 
-    override fun map(t: TopicForm): Topic {
+    override fun map(t: CreateTopicForm): Topic {
         return Topic(
             id = UUID.randomUUID(),
             title = t.title,
