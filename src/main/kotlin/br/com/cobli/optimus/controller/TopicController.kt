@@ -1,9 +1,7 @@
 package br.com.cobli.optimus.controller
 
-import br.com.cobli.optimus.dto.TopicDTO
-import br.com.cobli.optimus.model.Course
-import br.com.cobli.optimus.model.Topic
-import br.com.cobli.optimus.model.User
+import br.com.cobli.optimus.dto.TopicForm
+import br.com.cobli.optimus.dto.TopicView
 import br.com.cobli.optimus.service.TopicService
 import org.springframework.web.bind.annotation.*
 import java.util.*
@@ -13,17 +11,17 @@ import java.util.*
 class TopicController(private val service: TopicService) {
 
     @GetMapping
-    fun getTopics(): List<Topic> {
+    fun getTopics(): List<TopicView> {
         return service.getTopics()
     }
 
     @GetMapping("/{id}")
-    fun getTopicById(@PathVariable id: UUID): Topic {
+    fun getTopicById(@PathVariable id: UUID): TopicView {
         return service.getTopicById(id)
     }
 
     @PostMapping
-    fun createTopic(@RequestBody topicDTO: TopicDTO) {
+    fun createTopic(@RequestBody topicDTO: TopicForm) {
         service.createTopic(topicDTO)
     }
 }

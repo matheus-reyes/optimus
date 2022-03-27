@@ -2,7 +2,7 @@ package br.com.cobli.optimus.dto
 
 import java.util.UUID
 
-data class TopicDTO (
+data class TopicForm (
         val title : String,
         val message: String,
         val courseId: UUID,

@@ -1,8 +1,10 @@
 package br.com.cobli.optimus.service
-import br.com.cobli.optimus.dto.TopicDTO
+import br.com.cobli.optimus.dto.TopicForm
+import br.com.cobli.optimus.dto.TopicView
 import br.com.cobli.optimus.model.Topic
 import org.springframework.stereotype.Service
 import java.util.UUID
+import java.util.stream.Collectors
 
 @Service
 class TopicService(
@@ -11,17 +13,30 @@ class TopicService(
         private val userService: UserService,
 ) {
 
-    fun getTopics(): List<Topic> {
-        return topics
+    fun getTopics(): List<TopicView> {
+        return topics.stream().map { topic -> TopicView(
+            id = topic.id,
+            title = topic.title,
+            message = topic.message,
+            createdAt = topic.createdAt,
+            status = topic.status,
+        )}.collect(Collectors.toList())
     }
 
-    fun getTopicById(id: UUID): Topic {
-        return topics.stream().filter { topic ->
+    fun getTopicById(id: UUID): TopicView {
+        val topic = topics.stream().filter { topic ->
             topic.id == id
         }.findFirst().get()
+        return TopicView(
+            id = topic.id,
+            title = topic.title,
+            message = topic.message,
+            createdAt = topic.createdAt,
+            status = topic.status,
+        )
     }
 
-    fun createTopic(topicDTO: TopicDTO) {
+    fun createTopic(topicDTO: TopicForm) {
         topics = topics.plus(Topic(
             id = UUID.randomUUID(),
             title = topicDTO.title,
