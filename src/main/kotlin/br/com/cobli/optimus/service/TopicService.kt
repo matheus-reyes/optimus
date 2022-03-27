@@ -50,4 +50,11 @@ class TopicService(
             )
         )
     }
+
+    fun deleteTopic(id: UUID) {
+        val topic = topics.stream().filter { topic ->
+            topic.id == id
+        }.findFirst().get()
+        topics = topics.minus(topic)
+    }
 }
