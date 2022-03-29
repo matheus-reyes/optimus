@@ -1,6 +1,7 @@
 package br.com.cobli.optimus.controller
 
 import br.com.cobli.optimus.dto.CreateTopicForm
+import br.com.cobli.optimus.dto.TopicByCategoryDto
 import br.com.cobli.optimus.dto.TopicView
 import br.com.cobli.optimus.dto.UpdateTopicForm
 import br.com.cobli.optimus.service.TopicService
@@ -62,5 +63,10 @@ class TopicController(private val service: TopicService) {
     @CacheEvict(value = ["topics_cache"], allEntries = true)
     fun deleteTopic(@PathVariable id: UUID) {
         service.deleteTopic(id)
+    }
+
+    @GetMapping("/report")
+    fun getTopicsReport(): List<TopicByCategoryDto> {
+        return service.getTopicsReport()
     }
 }

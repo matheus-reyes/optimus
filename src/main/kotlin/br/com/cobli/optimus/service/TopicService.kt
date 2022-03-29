@@ -1,5 +1,6 @@
 package br.com.cobli.optimus.service
 import br.com.cobli.optimus.dto.CreateTopicForm
+import br.com.cobli.optimus.dto.TopicByCategoryDto
 import br.com.cobli.optimus.dto.TopicView
 import br.com.cobli.optimus.dto.UpdateTopicForm
 import br.com.cobli.optimus.exception.NotFoundException
@@ -53,5 +54,9 @@ class TopicService(
 
     fun deleteTopic(id: UUID) {
         topicRepository.deleteById(id)
+    }
+
+    fun getTopicsReport(): List<TopicByCategoryDto> {
+        return topicRepository.getTopicsReport()
     }
 }
